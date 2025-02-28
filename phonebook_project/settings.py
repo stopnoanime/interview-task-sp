@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonebook'
 ]
 
 MIDDLEWARE = [
@@ -66,8 +67,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'phonebook_project.wsgi.application'
 
 
 # Database
