@@ -7,11 +7,22 @@
 </h3>
 
 {% if contact_list %}
-    <ul>
-    {% for contact in contact_list %}
-        <li><a href="{% url 'detail' contact.pk %}">{{ contact }}</a></li>
-    {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contact_list %}
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.phone }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% else %}
     <p>No contacts are available.</p>
 {% endif %}
