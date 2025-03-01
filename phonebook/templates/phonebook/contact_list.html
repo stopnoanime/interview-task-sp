@@ -1,3 +1,7 @@
+{% extends "phonebook/base.html" %}
+
+{% block content %}
+
 {% if contact_list %}
     <ul>
     {% for contact in contact_list %}
@@ -7,3 +11,5 @@
 {% else %}
     <p>No contacts are available.</p>
 {% endif %}
+
+{% endblock %}
