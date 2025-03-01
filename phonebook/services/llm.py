@@ -131,47 +131,49 @@ class LLMPhonebookService:
     def process_action(self, action):
         args = action['args']
         
+        def get_contact():
+            contact = Contact.objects.filter(name__iexact=args['name']).first()
+
+            if contact is None:
+                raise Contact.DoesNotExist()
+            
+            return contact
+        
         try:
             match action['action']:
                 case "add_contact":
-                    if Contact.objects.filter(name=args['name']).exists():
-                        return {
-                            "url": reverse('index'),
-                            "msg": f"Contact '{args['name']}' already exists."
-                        }
-                    
                     contact = Contact.objects.create(name=args['name'], phone=args['phone'])
                     
                     return {
                         "url": reverse('detail', args=[contact.pk]),
-                        "msg": f"Added contact '{args['name']}' with phone {args['phone']}."
+                        "msg": f"Added contact '{contact.name}' with phone {contact.phone}."
                     }
                 
                 case "search_contact":
-                    contact = Contact.objects.get(name=args['name'])
+                    contact = get_contact()
                     
                     return {
                         "url": reverse('detail', args=[contact.pk]),
-                        "msg": f"Found contact '{args['name']}'."
+                        "msg": f"Found contact '{contact.name}'."
                     }
                     
                 case "update_contact":
-                    contact = Contact.objects.get(name=args['name'])
+                    contact = get_contact()
                     contact.phone = args['phone']
                     contact.save()
                     
                     return {
                         "url": reverse('detail', args=[contact.pk]),
-                        "msg": f"Updated phone number for '{args['name']}' to {args['phone']}."
+                        "msg": f"Updated phone number for '{contact.name}' to {contact.phone}."
                     }
                     
                 case "delete_contact":
-                    contact = Contact.objects.get(name=args['name'])
+                    contact = get_contact()
                     contact.delete()
                     
                     return {
                         "url": reverse('index'),
-                        "msg": f"Deleted contact '{args['name']}'."
+                        "msg": f"Deleted contact '{contact.name}'."
                     }
                     
                 case "list_all_contacts":
