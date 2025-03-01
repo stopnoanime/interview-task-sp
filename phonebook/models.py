@@ -7,4 +7,4 @@ class Contact(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} - {self.phone}"
+        return f"Name: {self.name} - Phone: {self.phone}"

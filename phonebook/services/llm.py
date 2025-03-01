@@ -177,7 +177,7 @@ class LLMPhonebookService:
                 case "list_all_contacts":
                     return {
                         "url": reverse('list'),
-                        "msg": "Showing the entire phonebook."
+                        "msg": ""
                     }
                     
                 case "unknown":

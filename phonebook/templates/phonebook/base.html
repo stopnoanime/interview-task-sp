@@ -1,18 +1,32 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Phone Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'phonebook/style.css' %}">
 </head>
 
 <body>
-    <div id="header">
-        {% if request.GET.msg %}
-        Message: {{ request.GET.msg }}
-        {% endif %}
-    </div>
+    <header>
+        <h1>
+            Phone Book Assistant
+        </h1>
 
-    <div id="content">
-        {% block content %}{% endblock %}
+        <nav>
+            <a href="{% url 'index' %}">Homepage</a>
+        </nav>
+
+        <h3>
+            {{ request.GET.msg }} &nbsp;
+        </h3>
+    </header>
+
+    <div class="centered-column">
+        <div>
+            {% block content %}{% endblock %}
+        </div>
     </div>
 </body>
 </html>
